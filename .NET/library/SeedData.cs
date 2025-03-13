@@ -19,8 +19,12 @@ namespace OneBeyondApi
             {
                 Name = "Margaret Jones"
             };
+			      var BrandonSanderson = new Author
+			      {
+				      Name = "Brandon Sanderson"
+						};
 
-            var clayBook = new Book
+			var clayBook = new Book
             {
                 Name = "The Importance of Clay",
                 Format = BookFormat.Paperback,
@@ -44,16 +48,26 @@ namespace OneBeyondApi
                 ISBN = "3134324111"
             };
 
-            var daveSmith = new Borrower
+			      var goodBook = new Book
+			      {
+				      Name = "The Way of Kings",
+				      Format = BookFormat.Paperback,
+				      Author = BrandonSanderson,
+				      ISBN = "9780765365279"
+						};
+
+			var daveSmith = new Borrower
             {
                 Name = "Dave Smith",
-                EmailAddress = "dave@smithy.com"
+                EmailAddress = "dave@smithy.com",
+                Fines = []
             };
 
             var lianaJames = new Borrower
             {
                 Name = "Liana James",
-                EmailAddress = "liana@gmail.com"
+                EmailAddress = "liana@gmail.com",
+                Fines = []
             };
 
             var bookOnLoanUntilToday = new BookStock {
@@ -62,7 +76,14 @@ namespace OneBeyondApi
                 LoanEndDate = DateTime.Now.Date
             };
 
-            var bookNotOnLoan = new BookStock
+			      var anotherBookOnLone = new BookStock
+			      {
+				      Book = goodBook,
+				      OnLoanTo = daveSmith,
+				      LoanEndDate = DateTime.Now.Date.AddDays(1)
+			      };
+
+						var bookNotOnLoan = new BookStock
             {
                 Book = clayBook,
                 OnLoanTo = null,
@@ -73,7 +94,7 @@ namespace OneBeyondApi
             {
                 Book = agileBook,
                 OnLoanTo = lianaJames,
-                LoanEndDate = DateTime.Now.Date.AddDays(7)
+                LoanEndDate = DateTime.Now.Date.AddDays(-7)
             };
 
             var rustBookStock = new BookStock
@@ -88,11 +109,13 @@ namespace OneBeyondApi
                 context.Authors.Add(ernestMonkjack);
                 context.Authors.Add(sarahKennedy);
                 context.Authors.Add(margaretJones);
+                context.Authors.Add(BrandonSanderson);
 
 
                 context.Books.Add(clayBook);
                 context.Books.Add(agileBook);
                 context.Books.Add(rustBook);
+                context.Books.Add(goodBook);
 
                 context.Borrowers.Add(daveSmith);
                 context.Borrowers.Add(lianaJames);
@@ -101,6 +124,7 @@ namespace OneBeyondApi
                 context.Catalogue.Add(bookNotOnLoan);
                 context.Catalogue.Add(bookOnLoanUntilNextWeek);
                 context.Catalogue.Add(rustBookStock);
+                context.Catalogue.Add(anotherBookOnLone);
 
                 context.SaveChanges();
 
